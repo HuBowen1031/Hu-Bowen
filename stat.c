@@ -4,30 +4,24 @@ int main() {
     int i;
     int isPresent;
     int overall = 0, cont = 0, maxcont = 0;
-    int flag;
+    /*
     scanf("%d", &n);
     scanf("%d", &k);
     scanf("%d", &m);
-    flag = 0;
+    */
+    scanf("%d %d %d",&n,&k,&m);
     for (i=0; i<n; ++i) {
-        scanf("%d", &isPresent);
-        if (isPresent == 1) {
-            overall++;
-            if (flag == 0){
-                flag = 1;
-                cont++;
-            }
-            else {
-                cont++;
-                
-            }
-            if (cont > maxcont) {
-                    maxcont = cont;
-                }
+        scanf("%d", &isPresent); //Read 
+        if (isPresent == 1) { //need to act
+            overall++; 
+            cont++;
+            
         }
         else {
-            flag = 0;
             cont = 0;
+        }
+        if (cont > maxcont) {
+            maxcont = cont;
         }
     }
     printf("%d\n",overall);
