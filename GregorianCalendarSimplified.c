@@ -10,7 +10,7 @@ int yearDayCount(int year) {
     if (year == 1582) {
         return 355;
     }
-    if (year > 1582) {
+    else { //Changed it to suppress a warning
         if((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) return 366;
         else return 365;
     }
