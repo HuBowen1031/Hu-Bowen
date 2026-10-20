@@ -23,6 +23,24 @@
                 "isDefault": true
             },
             "detail": "调试器生成的任务。"
+        },
+        {
+            "label": "build C file",
+            "type": "shell",
+            "command": "/usr/bin/clang", // macOS 自带 clang，也可以用 gcc (本质也是调 clang)
+            "args": [
+                "-g", // 必须！生成调试信息
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "silent" // 编译成功不弹终端，失败才弹
+            }
         }
     ],
     "version": "2.0.0"

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <string.h> // 需要用到 strcpy 复制字符串
+#include <string.h> 
 
 int main() {
     int score;
