@@ -1,31 +1,36 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-int main() {
-    char digits[13];
-    char hyphensIndex[3];
-    char c;
-    int i = 0, j = 0;
+#define MAX_LEN 64
 
-    while((c = getchar()) != EOF && c != '\n') {
+int main(void) {
+    char digits[MAX_LEN];
+    int hyphensIndex[MAX_LEN];
+    int hyphenCount = 0;
+    int length = 0;
+    int i, j;
+    int c;
+
+    /* Read one line, remembering where each hyphen appeared. */
+    while (length < MAX_LEN && (c = getchar()) != EOF && c != '\n') {
         if (c == '-') {
-            hyphensIndex[j] = i;
+            hyphensIndex[hyphenCount] = length;
+            hyphenCount++;
+        } else {
+            digits[length] = (char)c;
+        }
+        length++;
+    }
+
+    /* Print only the digits, skipping every recorded hyphen position. */
+    for (i = 0, j = 0; i < length; ++i) {
+        if (j < hyphenCount && hyphensIndex[j] == i) {
+            putchar('-');
             j++;
-            i++;
             continue;
         }
-        digits[i] = c;
-        i++;
+        putchar(digits[i]);
     }
+    putchar('\n');
 
-    j = 0;
-    for (i = 0; i < 13; ++i) {
-        if (hyphensIndex[j] == i) {
-            printf("-");
-            j++;
-        }
-        else printf("%c", digits[i]);
-    }
-    printf("\n");
-
+    return 0;
 }
