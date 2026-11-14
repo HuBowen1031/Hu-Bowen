@@ -1,24 +1,44 @@
 {
-    // 使用 IntelliSense 了解相关属性。 
+    // 使用 IntelliSense 了解相关属性。
     // 悬停以查看现有属性的描述。
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    //
+    // 为什么用 cppdbg 而不是 lldb-dap：
+    // lldb-dap 21.0.0 的 runInTerminal 启动器在本机上完全无法完成握手
+    // （在 VS Code 之外单独复现也一样超时，属于该版本自身的问题），
+    // 因此改用微软的 cppdbg。它在 macOS 上通过 osxlaunchhelper.scpt
+    // 打开一个真正的 Terminal 窗口来跑程序，不经过 lldb-dap 的启动器，
+    // terminal 里的 stdin 是真正的 tty，scanf / getchar 都能输入。
+    //
+    // 注意：externalConsole 只在 Windows 的 cppvsdbg 上被标记为弃用，
+    // 对 macOS 的 cppdbg 仍然是正确用法。
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug C (通用)",
+            "name": "Debug C (外部控制台, 可输入)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}", // 核心：自动识别当前文件编译出的程序
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
-            "externalConsole": true, // 关键：会弹出一个独立的终端，scanf 随便用
-            "MIMode": "lldb",        // macOS 必须用 lldb，不能用 gdb
-            "preLaunchTask": "build C file" // 运行前自动执行编译任务
+            "externalConsole": true,
+            "MIMode": "lldb",
+            "preLaunchTask": "build C file"
+        },
+        {
+            "name": "Debug C project (外部控制台, 可输入)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/main",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "lldb",
+            "preLaunchTask": "build C project (folder .c files)"
         }
-
-       
-
     ]
 }

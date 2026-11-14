@@ -41,6 +41,34 @@
             "presentation": {
                 "reveal": "silent" // 编译成功不弹终端，失败才弹
             }
+        },
+        {
+            // 编译「当前文件所在文件夹」里的所有 .c，再一起链接成 main。
+            // 适合 main.c + customFuncs.c 这种多文件小项目：
+            // 入口固定是 main.c 里的 main()，所以输出名固定为 main，
+            // 不会因为你当前打开的是 customFuncs.c 就变成另一个名字。
+            "label": "build C project (folder .c files)",
+            "type": "shell",
+            "command": "/usr/bin/clang",
+            "args": [
+                "-g",
+                "-Wall",
+                "${fileDirname}/*.c",
+                "-o",
+                "${fileDirname}/main"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "group": {
+                "kind": "build"
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ],
     "version": "2.0.0"
