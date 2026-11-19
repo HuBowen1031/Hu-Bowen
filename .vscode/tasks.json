@@ -49,13 +49,13 @@
             // 不会因为你当前打开的是 customFuncs.c 就变成另一个名字。
             "label": "build C project (folder .c files)",
             "type": "shell",
-            "command": "/usr/bin/clang",
+            // 用 zsh -c 让 shell 自己展开 *.c。
+            // 直接把 "${fileDirname}/*.c" 当参数传进去时，VSCode 会给它加引号
+            // （路径里有空格时必然加），clang 收到的是一串字面量 *，不做通配展开。
+            "command": "/bin/zsh",
             "args": [
-                "-g",
-                "-Wall",
-                "${fileDirname}/*.c",
-                "-o",
-                "${fileDirname}/main"
+                "-c",
+                "exec /usr/bin/clang -g -Wall ./*.c -o ./main"
             ],
             "options": {
                 "cwd": "${fileDirname}"
