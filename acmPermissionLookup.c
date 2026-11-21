@@ -29,6 +29,7 @@ int main() {
 
     //read all the permission definition
     scanf("%d", &p);
+    getchar(); //get rid of \n
     for (i = 0; i < p; ++i) {
         char temp[10] = {0};
         k = 0;
